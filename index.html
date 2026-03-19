@@ -1,0 +1,1241 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Developer Aslam</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@5"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <style type="text/tailwindcss">
+      /* Tailwind v4 Configuration */
+      @theme {
+        --color-border: rgba(124, 240, 176, 0.12);
+        --color-muted: rgba(232, 232, 240, 0.4);
+        --color-bg-dark: #1c1c21;
+        --color-surface: #111118;
+        --color-border-dark: #1e1e2e;
+        --color-accent: #7cf0b0;
+        --color-text-main: #e8e8f0;
+
+        --background-image-glass-gradient: linear-gradient(
+          145deg,
+          rgba(128, 151, 143, 0.15) 0%,
+          rgba(38, 216, 104, 0.1) 100%
+        );
+
+        --font-mono: "Fira Code", monospace;
+      }
+
+      /* Custom Styles */
+      * {
+        font-family: "Fira Code", monospace;
+      }
+      :root {
+        --pointer-x: 50%;
+        --pointer-y: 50%;
+      }
+      body {
+        position: relative;
+        z-index: 0;
+        background:
+          radial-gradient(
+            ellipse 60% 50% at var(--pointer-x, 50%) var(--pointer-y, 50%),
+            rgba(39, 203, 203, 0.15) 0%,
+            rgba(20, 80, 60, 0.08) 50%,
+            transparent 100%
+          ),
+          #0d1210;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+        pointer-events: none;
+        z-index: -1;
+        opacity: 0.4;
+      }
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(124, 240, 176, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(124, 240, 176, 0.03) 1px, transparent 1px);
+        background-size: 35px 35px;
+        pointer-events: none;
+        z-index: -2;
+      }
+      .navbar {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: transparent !important;
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border-bottom: 1px solid rgba(124, 240, 176, 0.08);
+      }
+      #tw-cursor {
+        display: inline-block;
+        width: 2px;
+        height: 1em;
+        background: #7cf0b0;
+        margin-left: 2px;
+        vertical-align: middle;
+        animation: blink 0.65s step-end infinite;
+      }
+
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
+      }
+      /* marque */
+      .marquee-wrap {
+        position: relative;
+        z-index: 1;
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+        overflow: hidden;
+        padding: 1rem 0;
+        background: rgba(255, 255, 255, 0.01);
+      }
+      .marquee-track {
+        display: flex;
+        gap: 3rem;
+        width: max-content;
+        animation: marquee 20s linear infinite;
+      }
+      .marquee-item {
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        color: var(--muted);
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        white-space: nowrap;
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+      }
+      .marquee-dot {
+        color: var(--accent);
+        font-size: 1.2rem;
+      }
+      @keyframes marquee {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(-50%);
+        }
+      }
+      .skill-badge {
+        font-family: "Fira Code", monospace;
+        font-size: 0.7rem;
+        letter-spacing: 0.05em;
+        padding: 0.3rem 0.75rem;
+        border-radius: 9999px;
+        border: 1px solid rgba(124, 240, 176, 0.2);
+        color: rgba(232, 232, 240, 0.7);
+        background: rgba(124, 240, 176, 0.04);
+        transition: all 0.2s ease;
+      }
+      .skill-badge:hover {
+        border-color: rgba(124, 240, 176, 0.5);
+        color: #7cf0b0;
+        background: rgba(124, 240, 176, 0.08);
+      }
+      /* projects */
+      :root {
+        --surface: #0d110f;
+        --border: rgba(124, 240, 176, 0.12);
+        --muted: rgba(232, 232, 240, 0.4);
+        --accent: #7cf0b0;
+        --font-mono: "Fira Code", monospace;
+      }
+      .project-card:nth-child(1) .project-thumb {
+        background: linear-gradient(135deg, #0d2b1e 0%, #1a4a2e 100%);
+      }
+      .project-card:nth-child(2) .project-thumb {
+        background: linear-gradient(135deg, #1a1a2e 0%, #0f2d4a 100%);
+      }
+      .project-card:nth-child(3) .project-thumb {
+        background: linear-gradient(135deg, #2b1a0d 0%, #4a2e0f 100%);
+      }
+      .project-card:nth-child(4) .project-thumb {
+        background: linear-gradient(135deg, #1a0d2b 0%, #2e0f4a 100%);
+      }
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr));
+        gap: 1.5rem;
+      }
+
+      .project-card {
+        border: 1px solid var(--border);
+        background: var(--surface);
+        overflow: hidden;
+        transition:
+          transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+          border-color 0.4s;
+        position: relative;
+        group: true;
+        border-radius: 1rem;
+      }
+      .project-card:hover {
+        transform: translateY(-6px);
+        border-color: rgba(124, 240, 176, 0.25);
+      }
+
+      .project-thumb {
+        height: 200px;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+      }
+      .project-thumb-inner {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 4rem;
+        transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .project-card:hover .project-thumb-inner {
+        transform: scale(1.1) rotate(-3deg);
+      }
+      .project-thumb-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to bottom, transparent 40%, var(--surface));
+      }
+
+      .project-body {
+        padding: 1.8rem;
+      }
+      .project-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.8rem;
+      }
+      .project-type {
+        font-family: var(--font-mono);
+        font-size: 0.68rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+      .project-year {
+        font-family: var(--font-mono);
+        font-size: 0.68rem;
+        color: var(--muted);
+      }
+      .project-title {
+        font-size: 1.3rem;
+        font-weight: 700;
+        margin-bottom: 0.7rem;
+        letter-spacing: -0.01em;
+      }
+      .project-desc {
+        font-family: var(--font-mono);
+        font-size: 0.8rem;
+        color: var(--muted);
+        line-height: 1.7;
+        font-weight: 300;
+        margin-bottom: 1.5rem;
+      }
+      .project-stack {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
+      }
+      .stack-tag {
+        font-family: var(--font-mono);
+        font-size: 0.65rem;
+        padding: 0.25rem 0.6rem;
+        background: rgba(124, 240, 176, 0.08);
+        border: 1px solid rgba(124, 240, 176, 0.2);
+        color: var(--accent);
+        letter-spacing: 0.05em;
+      }
+      .project-links {
+        display: flex;
+        gap: 1rem;
+      }
+      .project-link {
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        color: var(--muted);
+        text-decoration: none;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        transition: color 0.3s;
+      }
+      .project-link:hover {
+        color: var(--accent);
+      }
+      .project-link svg {
+        width: 12px;
+        height: 12px;
+      }
+      /* contact */
+      .contact-info-row {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.75rem 1rem;
+        border-radius: 0.75rem;
+        border: 1px solid rgba(124, 240, 176, 0.08);
+        background: rgba(124, 240, 176, 0.02);
+        transition:
+          border-color 0.3s,
+          background 0.3s;
+        text-decoration: none;
+      }
+      .contact-info-row:hover {
+        border-color: rgba(124, 240, 176, 0.25);
+        background: rgba(124, 240, 176, 0.04);
+      }
+      .contact-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 0.5rem;
+        border: 1px solid rgba(124, 240, 176, 0.2);
+        background: rgba(124, 240, 176, 0.06);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #7cf0b0;
+        flex-shrink: 0;
+      }
+      .contact-input {
+        width: 100%;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(124, 240, 176, 0.15);
+        border-radius: 0.75rem;
+        padding: 0.65rem 1rem;
+        font-family: "Fira Code", monospace;
+        font-size: 0.8rem;
+        color: rgba(232, 232, 240, 0.8);
+        outline: none;
+        transition:
+          border-color 0.3s,
+          background 0.3s;
+      }
+      .contact-input::placeholder {
+        color: rgba(232, 232, 240, 0.2);
+      }
+      .contact-input:focus {
+        border-color: rgba(124, 240, 176, 0.4);
+        background: rgba(124, 240, 176, 0.03);
+      }
+    </style>
+  </head>
+  <body class="text-text-main overflow-x-hidden relative">
+    <div
+      class="navbar px-4 md:px-8 backdrop-blur-xl bg-transparent border-b border-accent/10"
+    >
+      <!-- Logo / Brand -->
+      <div class="flex-1">
+        <a class="btn btn-ghost text-xl font-bold tracking-tighter">
+          aslam<span class="text-accent">.dev</span>
+        </a>
+      </div>
+
+      <!-- Desktop menu – visible only on lg+ -->
+      <div class="hidden lg:flex flex-none">
+        <ul class="menu menu-horizontal px-1 font-bold text-xs tracking-widest">
+          <li class="hover:text-accent transition-colors duration-300">
+            <a href="#about">ABOUT</a>
+          </li>
+          <li class="hover:text-accent transition-colors duration-300">
+            <a href="#skills">SKILL</a>
+          </li>
+          <li class="hover:text-accent transition-colors duration-300">
+            <a href="#projects">PROJECTS</a>
+          </li>
+          <li class="hover:text-accent transition-colors duration-300">
+            <a href="#contact">CONTACT</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Mobile menu button + dropdown – visible only on < lg -->
+      <div class="flex-none lg:hidden">
+        <div class="dropdown dropdown-end">
+          <label tabindex="0" class="btn btn-ghost btn-circle">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h7"
+              />
+            </svg>
+          </label>
+          <ul
+            tabindex="0"
+            class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow-xl bg-base-200/95 backdrop-blur-lg rounded-box w-52 border border-accent/20"
+          >
+            <li><a href="#about" class="py-2.5">ABOUT</a></li>
+            <li><a href="#skills" class="py-2.5">SKILL</a></li>
+            <li><a href="#projects" class="py-2.5">PROJECTS</a></li>
+            <li><a href="#contact" class="py-2.5">CONTACT</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- hero section -->
+    <section id="hero" class="w-10/12 mx-auto mt-20">
+      <div class="hero-content flex flex-col items-start">
+        <p class="text-accent/60 text-sm">const developer = "Aslam Hosen";</p>
+        <div
+          class="hero-tag hero-tag font-bold text-4xl md:text-7xl tracking-tighter leading-tight bg-gradient-to-r from-white via-white to-accent bg-clip-text text-transparent"
+        >
+          Frontend Developer &amp; UI Engineer
+        </div>
+        <div>
+          <p class="text-accent text-2xl md:text-5xl min-h-[1.6em]">
+            <span id="tw-text"></span><span id="tw-cursor"></span>
+          </p>
+        </div>
+
+        <p class="hero-desc text-sm text-white/50 max-w-xl leading-relaxed">
+          I build end-to-end web applications, connecting intuitive frontends
+          with scalable backend systems focused on clean architecture,
+          performance, and production-ready results.
+        </p>
+        <div class="hero-cta flex gap-4 mt-2">
+          <a
+            href="#projects"
+            class="btn btn-md btn-outline border-accent text-accent hover:bg-accent hover:text-black"
+          >
+            View Projects
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="m5 12 14 0M12 5l7 7-7 7" />
+            </svg>
+          </a>
+          <a
+            href="#contact"
+            class="btn btn-md btn-ghost border border-white/20 hover:border-accent"
+          >
+            Let's Talk
+          </a>
+        </div>
+      </div>
+    </section>
+    <!-- about section -->
+    <section id="about" class="w-10/12 mx-auto mt-30">
+      <div class="flex items-center gap-4">
+        <span
+          class="text-accent font-bold text-md tracking-widest whitespace-nowrap"
+          >/About</span
+        >
+        <div class="flex-1 border-t border-accent/30"></div>
+      </div>
+
+      <!-- card + text side by side -->
+      <div
+        class="mt-16 flex flex-col lg:flex-row items-center lg:items-centre gap-20"
+      >
+        <!-- card -->
+        <div
+          class="relative w-fit rounded-2xl overflow-hidden border border-accent/20 hover:border-accent/50 transition-all duration-500 hover:shadow-[0_0_30px_rgba(124,240,176,0.15)] cursor-pointer group flex-shrink-0"
+        >
+          <img
+            class="block w-full max-w-sm transition-transform duration-500 group-hover:scale-[1.02] group-hover:rotate-1"
+            src="https://i.postimg.cc/BbxQqf2C/lv-0-20251102191538-Photoroom.png"
+            alt="aslam hosen"
+          />
+          <div class="absolute inset-0 bg-cyan-500/20"></div>
+
+          <div class="absolute bottom-20 left-0 right-0 px-4 pb-2">
+            <p class="text-2xl md:text-3xl font-bold text-accent">
+              Md Aslam Hosen
+            </p>
+            <p class="text-xs text-white/70 mt-1">--- Frontend Developer</p>
+          </div>
+          <div
+            class="absolute bottom-0 left-0 right-0 px-4 py-3 flex items-center gap-3 bg-black/50 backdrop-blur-sm border-t border-accent/10"
+          >
+            <img
+              class="w-10 h-10 rounded-full object-cover object-top border border-accent/30 flex-shrink-0"
+              src="https://i.postimg.cc/BbxQqf2C/lv-0-20251102191538-Photoroom.png"
+              alt="aslam"
+            />
+            <div class="flex flex-1 items-center justify-between">
+              <div>
+                <p class="text-xs font-semibold text-accent">@aslam.dev</p>
+                <p class="text-xs text-white/40">Frontend Dev · Bangladesh</p>
+              </div>
+              <a
+                href=""
+                class="btn btn-sm btn-outline border-accent text-accent hover:bg-accent hover:text-black"
+              >
+                Let's Connect
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- right side text content -->
+        <div class="flex flex-col gap-10 flex-1">
+          <!-- heading -->
+          <h2 class="text-3xl md:text-4xl font-bold leading-tight">
+            A developer who
+            <span class="text-accent">cares about the details</span>
+          </h2>
+
+          <!-- bio with left border -->
+          <p
+            class="text-md text-white/70 leading-relaxed border-l-2 border-accent pl-4"
+          >
+            Self-taught Frontend Developer with a solid foundation in modern web
+            technologies, committed to creating
+            <span class="text-accent">clean and performant</span> user
+            interfaces.
+          </p>
+
+          <!-- quote box -->
+          <div class="border border-white/10 rounded-xl p-4">
+            <p class="text-sm text-white/50 leading-relaxed italic">
+              "Curiosity drives how I approach technology — from solving UI
+              problems to building
+              <span class="text-white/80 font-semibold not-italic"
+                >intuitive, useful software.</span
+              >
+              I enjoy transforming abstract ideas into tangible, usable
+              solutions."
+            </p>
+          </div>
+
+          <!-- interests -->
+          <div class="flex flex-col gap-3">
+            <p class="text-xs tracking-widest text-white/30 uppercase">
+              Interests
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <span class="text-xs text-accent/70 flex items-center gap-1"
+                ><span
+                  class="w-1.5 h-1.5 rounded-full bg-accent/50 inline-block"
+                ></span
+                >Frontend Development</span
+              >
+              <span class="text-xs text-accent/70 flex items-center gap-1"
+                ><span
+                  class="w-1.5 h-1.5 rounded-full bg-accent/50 inline-block"
+                ></span
+                >UI/UX Design</span
+              >
+              <span class="text-xs text-accent/70 flex items-center gap-1"
+                ><span
+                  class="w-1.5 h-1.5 rounded-full bg-accent/50 inline-block"
+                ></span
+                >AI & Automation</span
+              >
+              <span class="text-xs text-accent/70 flex items-center gap-1"
+                ><span
+                  class="w-1.5 h-1.5 rounded-full bg-accent/50 inline-block"
+                ></span
+                >Problem Solving</span
+              >
+            </div>
+          </div>
+
+          <!-- resume button -->
+
+          <a
+            href=""
+            class="btn btn-md btn-outline border-accent text-accent hover:bg-accent hover:text-black w-full"
+          >
+            View Full Resume
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+              />
+              <polyline points="15 3 21 3 21 9" />
+              <line x1="10" y1="14" x2="21" y2="3" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+    <!-- skill -->
+    <section id="skills" class="w-10/12 mx-auto mt-30">
+      <div class="flex items-center gap-4">
+        <span
+          class="text-accent font-bold text-md tracking-widest whitespace-nowrap"
+          >/Skill</span
+        >
+        <div class="flex-1 border-t border-accent/30"></div>
+      </div>
+      <div class="marquee-wrap my-6">
+        <div class="marquee-track">
+          <span class="marquee-item"
+            >React <span class="marquee-dot">◆</span></span
+          >
+          <span class="marquee-item"
+            >Tailwind CSS <span class="marquee-dot">◆</span></span
+          >
+          <span class="marquee-item"
+            >JavaScript <span class="marquee-dot">◆</span></span
+          >
+          <span class="marquee-item"
+            >HTML & CSS <span class="marquee-dot">◆</span></span
+          >
+          <span class="marquee-item"
+            >API Integration <span class="marquee-dot">◆</span></span
+          >
+          <span class="marquee-item"
+            >Figma to Code <span class="marquee-dot">◆</span></span
+          >
+          <span class="marquee-item"
+            >Netlify Deploy <span class="marquee-dot">◆</span></span
+          >
+          <span class="marquee-item"
+            >Freelancer <span class="marquee-dot">◆</span></span
+          >
+          <!-- duplicate for infinite loop -->
+          <span class="marquee-item"
+            >React <span class="marquee-dot">◆</span></span
+          >
+          <span class="marquee-item"
+            >Tailwind CSS <span class="marquee-dot">◆</span></span
+          >
+          <span class="marquee-item"
+            >JavaScript <span class="marquee-dot">◆</span></span
+          >
+          <span class="marquee-item"
+            >HTML & CSS <span class="marquee-dot">◆</span></span
+          >
+          <span class="marquee-item"
+            >API Integration <span class="marquee-dot">◆</span></span
+          >
+          <span class="marquee-item"
+            >Figma to Code <span class="marquee-dot">◆</span></span
+          >
+          <span class="marquee-item"
+            >Netlify Deploy <span class="marquee-dot">◆</span></span
+          >
+          <span class="marquee-item"
+            >Freelancer <span class="marquee-dot">◆</span></span
+          >
+        </div>
+      </div>
+      <section class="mt-16">
+        <div class="skills-grid grid grid-cols-1 md:grid-cols-2 gap-5">
+          <!-- Card 01 -->
+          <div
+            class="skill-card group relative rounded-2xl border border-accent/15 bg-white/[0.03] backdrop-blur-sm p-6 overflow-hidden hover:border-accent/40 hover:bg-white/[0.06] transition-all duration-500 hover:shadow-[0_0_30px_rgba(124,240,176,0.08)]"
+          >
+            <div
+              class="absolute top-4 right-5 text-accent/10 font-bold text-5xl leading-none select-none group-hover:text-accent/20 transition-colors duration-500"
+            >
+              01
+            </div>
+            <p
+              class="text-accent text-xs tracking-widest uppercase mb-4 font-semibold"
+            >
+              Frontend Core
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <span class="skill-badge">HTML5</span>
+              <span class="skill-badge">CSS3</span>
+              <span class="skill-badge">JavaScript</span>
+              <span class="skill-badge">ES6+</span>
+              <span class="skill-badge">DOM API</span>
+            </div>
+          </div>
+
+          <!-- Card 02 -->
+          <div
+            class="skill-card group relative rounded-2xl border border-accent/15 bg-white/[0.03] backdrop-blur-sm p-6 overflow-hidden hover:border-accent/40 hover:bg-white/[0.06] transition-all duration-500 hover:shadow-[0_0_30px_rgba(124,240,176,0.08)]"
+          >
+            <div
+              class="absolute top-4 right-5 text-accent/10 font-bold text-5xl leading-none select-none group-hover:text-accent/20 transition-colors duration-500"
+            >
+              02
+            </div>
+            <p
+              class="text-accent text-xs tracking-widest uppercase mb-4 font-semibold"
+            >
+              Frameworks & Libraries
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <span class="skill-badge">React.js</span>
+              <span class="skill-badge">Tailwind CSS v4</span>
+              <span class="skill-badge">DaisyUI v5</span>
+              <span class="skill-badge">React Hooks</span>
+            </div>
+          </div>
+
+          <!-- Card 03 -->
+          <div
+            class="skill-card group relative rounded-2xl border border-accent/15 bg-white/[0.03] backdrop-blur-sm p-6 overflow-hidden hover:border-accent/40 hover:bg-white/[0.06] transition-all duration-500 hover:shadow-[0_0_30px_rgba(124,240,176,0.08)]"
+          >
+            <div
+              class="absolute top-4 right-5 text-accent/10 font-bold text-5xl leading-none select-none group-hover:text-accent/20 transition-colors duration-500"
+            >
+              03
+            </div>
+            <p
+              class="text-accent text-xs tracking-widest uppercase mb-4 font-semibold"
+            >
+              Tools & Workflow
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <span class="skill-badge">Figma → Code</span>
+              <span class="skill-badge">Git & GitHub</span>
+              <span class="skill-badge">Netlify</span>
+              <span class="skill-badge">VS Code</span>
+              <span class="skill-badge">REST APIs</span>
+            </div>
+          </div>
+
+          <!-- Card 04 -->
+          <div
+            class="skill-card group relative rounded-2xl border border-accent/15 bg-white/[0.03] backdrop-blur-sm p-6 overflow-hidden hover:border-accent/40 hover:bg-white/[0.06] transition-all duration-500 hover:shadow-[0_0_30px_rgba(124,240,176,0.08)]"
+          >
+            <div
+              class="absolute top-4 right-5 text-accent/10 font-bold text-5xl leading-none select-none group-hover:text-accent/20 transition-colors duration-500"
+            >
+              04
+            </div>
+            <p
+              class="text-accent text-xs tracking-widest uppercase mb-4 font-semibold"
+            >
+              Learning Now
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <span class="skill-badge !border-accent/30 !text-accent/60"
+                >Python</span
+              >
+              <span class="skill-badge !border-accent/30 !text-accent/60"
+                >AI / ML</span
+              >
+              <span class="skill-badge !border-accent/30 !text-accent/60"
+                >Claude API</span
+              >
+              <span class="skill-badge !border-accent/30 !text-accent/60"
+                >LLMs</span
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+    <!-- projects -->
+    <section id="projects" class="w-10/12 mx-auto my-20">
+      <div class="flex items-center gap-4">
+        <span
+          class="text-accent font-bold text-md tracking-widest whitespace-nowrap"
+          >/Projects</span
+        >
+        <div class="flex-1 border-t border-accent/30"></div>
+      </div>
+      <div class="flex flex-col items-center my-10">
+        <h3 class="text-accent font-bold text-3xl">Things I have Built</h3>
+        <p class="text-white/50 text-sm my-6">
+          Real-world projects focused on system design, scalability, and clean
+          engineering.
+        </p>
+      </div>
+      <section>
+        <div class="section-header reveal">
+          <div class="section-line"></div>
+        </div>
+        <div class="projects-grid">
+          <div class="project-card reveal">
+            <div class="project-thumb pt-1">
+              <div class="project-thumb-inner">🌿</div>
+              <div class="project-thumb-overlay"></div>
+            </div>
+            <div class="project-body">
+              <div class="project-meta">
+                <span class="project-type">E-Commerce</span>
+                <span class="project-year">2024</span>
+              </div>
+              <h3 class="project-title">Plant Shop</h3>
+              <p class="project-desc">
+                Full cart functionality with DOM manipulation, async data
+                fetching, and local state management. Clean UI with smooth
+                interactions.
+              </p>
+              <div class="project-stack">
+                <span class="stack-tag">JavaScript</span>
+                <span class="stack-tag">HTML</span>
+                <span class="stack-tag">CSS</span>
+                <span class="stack-tag">REST API</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="project-link">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+                    />
+                    <polyline points="15 3 21 3 21 9" />
+                    <line x1="10" y1="14" x2="21" y2="3" />
+                  </svg>
+                  Live Demo
+                </a>
+                <a href="#" class="project-link">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="2" y1="12" x2="22" y2="12" />
+                    <path
+                      d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
+                    />
+                  </svg>
+                  GitHub
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card reveal">
+            <div class="project-thumb pt-2">
+              <div class="project-thumb-inner">📰</div>
+              <div class="project-thumb-overlay"></div>
+            </div>
+            <div class="project-body">
+              <div class="project-meta">
+                <span class="project-type">News App</span>
+                <span class="project-year">2024</span>
+              </div>
+              <h3 class="project-title">BBC Bangla Clone</h3>
+              <p class="project-desc">
+                Pixel-faithful clone of BBC Bangla's news interface, built from
+                scratch with live API data and responsive layout for all screen
+                sizes.
+              </p>
+              <div class="project-stack">
+                <span class="stack-tag">React</span>
+                <span class="stack-tag">Tailwind</span>
+                <span class="stack-tag">News API</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="project-link">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+                    />
+                    <polyline points="15 3 21 3 21 9" />
+                    <line x1="10" y1="14" x2="21" y2="3" />
+                  </svg>
+                  Live Demo
+                </a>
+                <a href="#" class="project-link">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="2" y1="12" x2="22" y2="12" />
+                    <path
+                      d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
+                    />
+                  </svg>
+                  GitHub
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card reveal">
+            <div class="project-thumb pt-3">
+              <div class="project-thumb-inner">🧮</div>
+              <div class="project-thumb-overlay"></div>
+            </div>
+            <div class="project-body">
+              <div class="project-meta">
+                <span class="project-type">Utility App</span>
+                <span class="project-year">2024</span>
+              </div>
+              <h3 class="project-title">Calculator App</h3>
+              <p class="project-desc">
+                Feature-complete calculator with keyboard support, history, and
+                edge-case handling. Deployed live on Netlify with CI/CD.
+              </p>
+              <div class="project-stack">
+                <span class="stack-tag">JavaScript</span>
+                <span class="stack-tag">CSS</span>
+                <span class="stack-tag">Netlify</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="project-link">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+                    />
+                    <polyline points="15 3 21 3 21 9" />
+                    <line x1="10" y1="14" x2="21" y2="3" />
+                  </svg>
+                  Live Demo
+                </a>
+                <a href="#" class="project-link">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="2" y1="12" x2="22" y2="12" />
+                    <path
+                      d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
+                    />
+                  </svg>
+                  GitHub
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card reveal">
+            <div class="project-thumb pt-4">
+              <div class="project-thumb-inner">👤</div>
+              <div class="project-thumb-overlay"></div>
+            </div>
+            <div class="project-body">
+              <div class="project-meta">
+                <span class="project-type">Portfolio</span>
+                <span class="project-year">2024</span>
+              </div>
+              <h3 class="project-title">Carlos Mendoza Site</h3>
+              <p class="project-desc">
+                Figma-to-code conversion project built with HTML and Tailwind
+                CSS. Responsive, animated, and production-deployed for a real
+                client.
+              </p>
+              <div class="project-stack">
+                <span class="stack-tag">HTML</span>
+                <span class="stack-tag">Tailwind CSS</span>
+                <span class="stack-tag">Figma</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="project-link">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+                    />
+                    <polyline points="15 3 21 3 21 9" />
+                    <line x1="10" y1="14" x2="21" y2="3" />
+                  </svg>
+                  Live Demo
+                </a>
+                <a href="#" class="project-link">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="2" y1="12" x2="22" y2="12" />
+                    <path
+                      d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
+                    />
+                  </svg>
+                  GitHub
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+    <!-- contact section -->
+    <section id="contact" class="w-10/12 mx-auto mt-10">
+      <div class="flex items-center gap-4">
+        <span
+          class="text-accent font-bold text-md tracking-widest whitespace-nowrap"
+          >/Contact</span
+        >
+        <div class="flex-1 border-t border-accent/30"></div>
+      </div>
+
+      <div class="mt-16 grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <!-- left side: heading + info -->
+        <div class="flex flex-col gap-8">
+          <div>
+            <p class="text-accent/60 text-xs tracking-widest uppercase mb-3">
+              // let's work together
+            </p>
+            <h2 class="text-3xl md:text-4xl font-bold leading-tight">
+              Got a project? <br /><span class="text-accent"
+                >Let's build it.</span
+              >
+            </h2>
+          </div>
+
+          <p class="text-sm text-white/50 leading-relaxed max-w-sm">
+            I'm open to freelance projects, UI work, and Figma-to-code
+            conversions. Response time is usually within 24 hours.
+          </p>
+
+          <!-- contact links -->
+          <div class="flex flex-col gap-4">
+            <a
+              href="mailto:aslam415465@gmail.com"
+              class="contact-info-row group"
+            >
+              <div class="contact-icon">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <rect x="2" y="4" width="20" height="16" rx="2" />
+                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                </svg>
+              </div>
+              <div>
+                <p class="text-xs text-white/30 uppercase tracking-widest">
+                  Email
+                </p>
+                <p
+                  class="text-sm text-white/70 group-hover:text-accent transition-colors duration-300"
+                >
+                  aslam415465@gmail.com
+                </p>
+              </div>
+            </a>
+
+            <a
+              href="https://linkedin.com/in/aslam-hosen-dev"
+              target="_blank"
+              class="contact-info-row group"
+            >
+              <div class="contact-icon">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
+                  />
+                  <rect x="2" y="9" width="4" height="12" />
+                  <circle cx="4" cy="4" r="2" />
+                </svg>
+              </div>
+              <div>
+                <p class="text-xs text-white/30 uppercase tracking-widest">
+                  LinkedIn
+                </p>
+                <p
+                  class="text-sm text-white/70 group-hover:text-accent transition-colors duration-300"
+                >
+                  aslam-hosen-dev
+                </p>
+              </div>
+            </a>
+
+            <a
+              href="https://github.com/aslam70"
+              target="_blank"
+              class="contact-info-row group"
+            >
+              <div class="contact-icon">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"
+                  />
+                  <path d="M9 18c-4.51 2-5-2-7-2" />
+                </svg>
+              </div>
+              <div>
+                <p class="text-xs text-white/30 uppercase tracking-widest">
+                  GitHub
+                </p>
+                <p
+                  class="text-sm text-white/70 group-hover:text-accent transition-colors duration-300"
+                >
+                  https://github.com/aslam70
+                </p>
+              </div>
+            </a>
+          </div>
+
+          <!-- availability badge -->
+          <div
+            class="flex items-center gap-3 border border-accent/20 rounded-xl px-4 py-3 w-fit bg-accent/5"
+          >
+            <span class="relative flex h-2 w-2">
+              <span
+                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"
+              ></span>
+              <span
+                class="relative inline-flex rounded-full h-2 w-2 bg-accent"
+              ></span>
+            </span>
+            <p class="text-xs text-accent/80 tracking-wide">
+              Available for freelance work
+            </p>
+          </div>
+        </div>
+
+        <!-- right side: form -->
+        <form
+          action="https://formspree.io/f/xreyrvjz"
+          method="POST"
+          class="rounded-2xl border border-accent/15 bg-white/[0.02] backdrop-blur-sm p-8 flex flex-col gap-5"
+        >
+          <div class="flex flex-col gap-1">
+            <label class="text-xs text-white/30 uppercase tracking-widest"
+              >Name</label
+            >
+            <input
+              type="text"
+              name="name"
+              placeholder="Your name"
+              class="contact-input"
+              required
+            />
+          </div>
+          <div class="flex flex-col gap-1">
+            <label class="text-xs text-white/30 uppercase tracking-widest"
+              >Email</label
+            >
+            <input
+              type="email"
+              name="email"
+              placeholder="your@email.com"
+              class="contact-input"
+              required
+            />
+          </div>
+          <div class="flex flex-col gap-1">
+            <label class="text-xs text-white/30 uppercase tracking-widest"
+              >Message</label
+            >
+            <textarea
+              rows="5"
+              name="message"
+              placeholder="Tell me about your project..."
+              class="contact-input resize-none"
+              required
+            ></textarea>
+          </div>
+          <button
+            type="submit"
+            class="btn btn-md btn-outline border-accent text-accent hover:bg-accent hover:text-black w-full mt-2"
+          >
+            Send Message
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="m22 2-7 20-4-9-9-4Z" />
+              <path d="M22 2 11 13" />
+            </svg>
+          </button>
+        </form>
+      </div>
+
+      <!-- footer line -->
+      <div
+        class="mt-24 pt-6 border-t border-accent/10 flex flex-col md:flex-row items-center justify-between gap-4"
+      >
+        <p class="text-xs text-white/20 tracking-widest">
+          © 2025 aslam.dev — built with Tailwind CSS v4 + DaisyUI
+        </p>
+        <p class="text-xs text-accent/40 tracking-widest">
+          Dhaka, Bangladesh 🇧🇩
+        </p>
+      </div>
+    </section>
+    <script src="./style.js"></script>
+  </body>
+</html>
